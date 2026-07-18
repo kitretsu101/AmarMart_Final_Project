@@ -1,20 +1,6 @@
--- ============================================================
--- AmarMart Oracle Database Setup Script
--- Run this script as SYSDBA or as the AMARMART schema owner
--- ============================================================
 
--- ============================================================
--- 1. CREATE SCHEMA USER (run as SYSDBA if needed)
--- ============================================================
--- CREATE USER AMARMART IDENTIFIED BY password;
--- GRANT CONNECT, RESOURCE, CREATE SESSION, CREATE TABLE,
---       CREATE SEQUENCE, CREATE TRIGGER TO AMARMART;
--- ALTER USER AMARMART QUOTA UNLIMITED ON USERS;
+-- PRODUCTS TABLE
 
-
--- ============================================================
--- 2. PRODUCTS TABLE
--- ============================================================
 CREATE TABLE products (
     product_id   NUMBER          NOT NULL,
     name         VARCHAR2(255)   NOT NULL,
@@ -53,9 +39,8 @@ END;
 /
 
 
--- ============================================================
--- 3. ORDERS TABLE
--- ============================================================
+
+-- ORDERS TABLE
 CREATE TABLE orders (
     order_id        NUMBER          NOT NULL,
     invoice_number  VARCHAR2(50)    NOT NULL,
@@ -96,9 +81,7 @@ END;
 /
 
 
--- ============================================================
--- 4. ORDER_ITEMS TABLE
--- ============================================================
+-- ORDER_ITEMS TABLE
 CREATE TABLE order_items (
     order_item_id  NUMBER        NOT NULL,
     order_id       NUMBER        NOT NULL,
@@ -126,9 +109,7 @@ END;
 /
 
 
--- ============================================================
--- 5. USERS TABLE (Admin)
--- ============================================================
+-- USERS TABLE (Admin)
 CREATE TABLE users (
     id              NUMBER          NOT NULL,
     name            VARCHAR2(255)   NOT NULL,
@@ -158,9 +139,7 @@ END;
 /
 
 
--- ============================================================
--- 6. MIGRATIONS TABLE (Laravel migration tracking)
--- ============================================================
+-- MIGRATIONS TABLE (Laravel migration tracking)
 CREATE TABLE migrations (
     id          NUMBER          NOT NULL,
     migration   VARCHAR2(255)   NOT NULL,
@@ -181,9 +160,7 @@ END;
 /
 
 
--- ============================================================
--- 7. SAMPLE DATA — PRODUCTS
--- ============================================================
+-- SAMPLE DATA — PRODUCTS
 INSERT INTO products (name, description, price, stock, image) VALUES (
     'Samsung Galaxy A55',
     'The Samsung Galaxy A55 features a 6.6-inch Super AMOLED display, 50MP triple camera, and a powerful Exynos 1480 processor. Ideal for everyday use with long battery life.',
@@ -227,6 +204,4 @@ INSERT INTO products (name, description, price, stock, image) VALUES (
 
 COMMIT;
 
--- ============================================================
--- END OF SCRIPT
--- ============================================================
+
