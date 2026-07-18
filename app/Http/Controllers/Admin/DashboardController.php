@@ -4,18 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Services\OracleStatsService;
-use Illuminate\View\View;
+use App\Models\Product;
 
 class DashboardController extends Controller
 {
-    public function __construct(private readonly OracleStatsService $stats) {}
-
-    public function index(): View
+    /**
+     * Display the admin dashboard with summary statistics.
+     */
+    public function index()
     {
-        $stats = $this->stats->dashboard();
-        $recentOrders = Order::query()->withCount('items')->latest('id')->limit(8)->get();
+        $totalProducts = Product::count();
+        $totalOrders   = Order::count();
+        $totalRevenue  = Order::sum('total_amount');
+        $latestOrders  = Order::orderBy('order_id', 'desc')->take(5)->get();
 
-        return view('admin.dashboard', compact('stats', 'recentOrders'));
+        return view('admin.dashboard', compact(
+            'totalProducts',
+            'totalOrders',
+            'totalRevenue',
+            'latestOrders'
+        ));
     }
 }

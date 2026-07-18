@@ -3,35 +3,43 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
+    /**
+     * The table associated with the model.
+     */
     protected $table = 'orders';
 
+    /**
+     * The primary key for the model.
+     */
+    protected $primaryKey = 'order_id';
+
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
+        'invoice_number',
         'customer_name',
-        'customer_email',
-        'customer_phone',
-        'customer_address',
+        'phone',
+        'email',
+        'address',
         'total_amount',
-        'status',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'total_amount' => 'decimal:2',
-        ];
-    }
+    /**
+     * The attributes that should be cast.
+     */
+    protected $casts = [
+        'total_amount' => 'decimal:2',
+    ];
 
-    public function items(): HasMany
+    /**
+     * An order has many order items.
+     */
+    public function orderItems()
     {
-        return $this->hasMany(OrderItem::class);
-    }
-
-    public static function statuses(): array
-    {
-        return ['pending', 'processing', 'completed', 'cancelled'];
+        return $this->hasMany(OrderItem::class, 'order_id', 'order_id');
     }
 }

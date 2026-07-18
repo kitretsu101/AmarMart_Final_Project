@@ -2,67 +2,55 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
+    /**
+     * The table associated with the model.
+     */
     protected $table = 'products';
 
+    /**
+     * The primary key for the model.
+     */
+    protected $primaryKey = 'product_id';
+
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'name',
-        'slug',
         'description',
         'price',
         'stock',
         'image',
-        'is_active',
     ];
 
-    protected function casts(): array
+    /**
+     * The attributes that should be cast.
+     */
+    protected $casts = [
+        'price' => 'decimal:2',
+        'stock' => 'integer',
+    ];
+
+    /**
+     * A product has many order items.
+     */
+    public function orderItems()
     {
-        return [
-            'price' => 'decimal:2',
-            'stock' => 'integer',
-            'is_active' => 'boolean',
-        ];
+        return $this->hasMany(OrderItem::class, 'product_id', 'product_id');
     }
 
-    public function orderItems(): HasMany
+    /**
+     * Get the image URL attribute.
+     */
+    public function getImageUrlAttribute(): string
     {
-        return $this->hasMany(OrderItem::class);
-    }
-
-    public function scopeActive(Builder $query): Builder
-    {
-        return $query->where('is_active', 1);
-    }
-
-    public function scopeSearch(Builder $query, ?string $term): Builder
-    {
-        if (! filled($term)) {
-            return $query;
+        if ($this->image && file_exists(storage_path('app/public/' . $this->image))) {
+            return asset('storage/' . $this->image);
         }
-
-        $like = '%'.strtoupper($term).'%';
-
-        return $query->whereRaw('UPPER(name) LIKE ?', [$like])
-            ->orWhereRaw('UPPER(description) LIKE ?', [$like]);
-    }
-
-    public function imageUrl(): ?string
-    {
-        if (! $this->image) {
-            return null;
-        }
-
-        return Storage::disk('public')->url($this->image);
-    }
-
-    public function isInStock(): bool
-    {
-        return $this->stock > 0;
+        return asset('images/no-image.png');
     }
 }
