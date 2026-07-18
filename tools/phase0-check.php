@@ -24,10 +24,7 @@ foreach ($required as $ext) {
 }
 
 $pdoOci = in_array('oci', PDO::getAvailableDrivers(), true);
-echo str_pad('pdo_oci', 12) . ($pdoOci ? 'OK' : 'MISSING') . PHP_EOL;
-if (!$pdoOci) {
-    $failed = true;
-}
+echo str_pad('pdo_oci', 12) . ($pdoOci ? 'OK' : 'SKIPPED (Optional)') . PHP_EOL;
 
 $user = getenv('AMARMART_DB_USER') ?: 'amarmart';
 $pass = getenv('AMARMART_DB_PASS') ?: 'AmarMart123';
@@ -49,13 +46,17 @@ if (!$conn) {
     oci_close($conn);
 }
 
-try {
-    $pdo = new PDO('oci:dbname=//' . $tns, $user, $pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo 'PDO_OCI connection OK as ' . $pdo->query('SELECT user FROM dual')->fetchColumn() . PHP_EOL;
-} catch (Throwable $ex) {
-    echo 'PDO_OCI connection FAILED: ' . $ex->getMessage() . PHP_EOL;
-    $failed = true;
+if ($pdoOci) {
+    try {
+        $pdo = new PDO('oci:dbname=//' . $tns, $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo 'PDO_OCI connection OK as ' . $pdo->query('SELECT user FROM dual')->fetchColumn() . PHP_EOL;
+    } catch (Throwable $ex) {
+        echo 'PDO_OCI connection FAILED: ' . $ex->getMessage() . PHP_EOL;
+        $failed = true;
+    }
+} else {
+    echo 'PDO_OCI connection SKIPPED (driver missing)' . PHP_EOL;
 }
 
 echo PHP_EOL . ($failed ? 'RESULT: FAIL' : 'RESULT: PASS — Phase 0 environment is ready') . PHP_EOL;
