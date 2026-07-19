@@ -6,16 +6,15 @@
 <section class="product-detail-section">
     <div class="container">
 
-        {{-- Breadcrumb --}}
         <nav aria-label="breadcrumb" class="mb-4">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Shop</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
             </ol>
         </nav>
 
         <div class="row g-5">
-            {{-- Product Image --}}
             <div class="col-md-5">
                 <div class="product-detail-img-wrap">
                     @if($product->image && file_exists(storage_path('app/public/' . $product->image)))
@@ -30,18 +29,27 @@
                 </div>
             </div>
 
-            {{-- Product Info --}}
             <div class="col-md-7">
                 <div class="product-detail-info">
-                    <h1 class="product-detail-name">{{ $product->name }}</h1>
+                    <div class="d-flex align-items-start justify-content-between gap-2 flex-wrap">
+                        <h1 class="product-detail-name mb-0">{{ $product->name }}</h1>
+                        @if(!empty($isRecentlyViewed))
+                            <span class="badge bg-info text-dark recently-viewed-badge">
+                                <i class="bi bi-clock-history me-1"></i>Recently Viewed
+                            </span>
+                        @endif
+                    </div>
 
-                    <div class="product-detail-price mb-3">
+                    <div class="product-detail-price mb-3 mt-3">
                         ৳{{ number_format($product->price, 2) }}
                     </div>
 
-                    {{-- Stock Status --}}
                     <div class="mb-3">
-                        @if($product->stock > 0)
+                        @if($product->stock > 0 && $product->stock < 5)
+                            <span class="badge bg-warning stock-badge">
+                                <i class="bi bi-exclamation-triangle me-1"></i>Low Stock ({{ $product->stock }} left)
+                            </span>
+                        @elseif($product->stock > 0)
                             <span class="badge bg-success stock-badge">
                                 <i class="bi bi-check-circle me-1"></i>In Stock ({{ $product->stock }} available)
                             </span>
@@ -52,33 +60,35 @@
                         @endif
                     </div>
 
-                    {{-- Description --}}
                     <div class="product-detail-desc mb-4">
                         <h5 class="desc-heading">Description</h5>
                         <p>{{ $product->description }}</p>
                     </div>
 
-                    {{-- Action Buttons --}}
                     <div class="d-flex gap-3 flex-wrap">
                         @if($product->stock > 0)
-                            <form action="{{ route('cart.add', $product->product_id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-primary btn-lg add-to-cart-btn" id="addToCartBtn">
-                                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
-                                </button>
-                            </form>
+                            <button type="button"
+                                    class="btn btn-primary btn-lg add-to-cart-btn"
+                                    data-ajax-add-cart="{{ $product->product_id }}">
+                                <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                            </button>
                         @else
                             <button type="button" class="btn btn-secondary btn-lg" disabled>
                                 <i class="bi bi-cart-x me-2"></i>Out of Stock
                             </button>
                         @endif
 
+                        <button type="button"
+                                class="btn btn-outline-danger btn-lg {{ !empty($inWishlist) ? 'active' : '' }}"
+                                data-wishlist-toggle="{{ $product->product_id }}">
+                            <i class="bi bi-heart{{ !empty($inWishlist) ? '-fill' : '' }} me-2"></i>Wishlist
+                        </button>
+
                         <a href="{{ route('home') }}" class="btn btn-outline-secondary btn-lg">
-                            <i class="bi bi-arrow-left me-2"></i>Back to Shop
+                            <i class="bi bi-arrow-left me-2"></i>Back
                         </a>
                     </div>
 
-                    {{-- Delivery Info --}}
                     <div class="delivery-info mt-4">
                         <div class="delivery-item">
                             <i class="bi bi-truck"></i>
@@ -86,7 +96,7 @@
                         </div>
                         <div class="delivery-item">
                             <i class="bi bi-shield-check"></i>
-                            <span>100% Secure Payment</span>
+                            <span>100% Secure Checkout</span>
                         </div>
                         <div class="delivery-item">
                             <i class="bi bi-arrow-repeat"></i>

@@ -4,36 +4,54 @@
 
 @section('content')
 
-{{-- ===== HERO SECTION ===== --}}
 <section class="hero-section">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8 mx-auto text-center">
                 <h1 class="hero-title">Welcome to <span class="brand-highlight">AmarMart</span></h1>
                 <p class="hero-subtitle">Discover thousands of products at unbeatable prices.</p>
-                <form action="{{ route('home') }}" method="GET" class="hero-search-form" role="search">
-                    <div class="input-group hero-search-group">
-                        <input type="search"
-                               class="form-control form-control-lg hero-search-input"
-                               name="search"
-                               placeholder="Search for products..."
-                               value="{{ $search ?? '' }}"
-                               aria-label="Search products">
-                        <button class="btn btn-primary btn-lg hero-search-btn" type="submit">
-                            <i class="bi bi-search me-1"></i>Search
-                        </button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
 </section>
 
-{{-- ===== PRODUCT LISTING ===== --}}
+{{-- Trending Products --}}
+@if(isset($trendingProducts) && $trendingProducts->count() > 0 && empty($search))
+<section class="products-section pt-4">
+    <div class="container">
+        <div class="section-header mb-3">
+            <h2 class="section-title"><i class="bi bi-fire text-danger me-2"></i>Trending Products</h2>
+            <p class="section-subtitle text-muted">Most popular items based on orders</p>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 mb-5">
+            @foreach($trendingProducts as $product)
+                @include('partials.product-card', ['product' => $product])
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- Latest Products --}}
+@if(isset($latestProducts) && $latestProducts->count() > 0 && empty($search))
+<section class="products-section pt-0">
+    <div class="container">
+        <div class="section-header mb-3">
+            <h2 class="section-title"><i class="bi bi-stars text-warning me-2"></i>Latest Products</h2>
+            <p class="section-subtitle text-muted">Fresh arrivals in our store</p>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 mb-5">
+            @foreach($latestProducts as $product)
+                @include('partials.product-card', ['product' => $product])
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- All Products / Search Results --}}
 <section class="products-section">
     <div class="container">
-
-        {{-- Section Header --}}
         <div class="section-header d-flex align-items-center justify-content-between mb-4">
             <div>
                 <h2 class="section-title">
@@ -43,9 +61,7 @@
                         Our Products
                     @endif
                 </h2>
-                <p class="section-subtitle text-muted">
-                    {{ $products->total() }} product(s) found
-                </p>
+                <p class="section-subtitle text-muted">{{ $products->total() }} product(s) found</p>
             </div>
             @if($search)
                 <a href="{{ route('home') }}" class="btn btn-outline-secondary btn-sm">
@@ -54,58 +70,19 @@
             @endif
         </div>
 
-        {{-- Products Grid --}}
         @if($products->count() > 0)
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
                 @foreach($products as $product)
-                    <div class="col">
-                        <div class="card product-card h-100">
-                            {{-- Product Image --}}
-                            <div class="product-card-img-wrap">
-                                @if($product->image && file_exists(storage_path('app/public/' . $product->image)))
-                                    <img src="{{ asset('storage/' . $product->image) }}"
-                                         alt="{{ $product->name }}"
-                                         class="product-card-img">
-                                @else
-                                    <div class="product-img-placeholder">
-                                        <i class="bi bi-image"></i>
-                                    </div>
-                                @endif
-                                @if($product->stock < 5 && $product->stock > 0)
-                                    <span class="badge bg-warning product-badge">Low Stock</span>
-                                @elseif($product->stock == 0)
-                                    <span class="badge bg-danger product-badge">Out of Stock</span>
-                                @endif
-                            </div>
-
-                            {{-- Card Body --}}
-                            <div class="card-body d-flex flex-column">
-                                <h3 class="product-name">{{ $product->name }}</h3>
-                                <p class="product-desc text-muted">
-                                    {{ Str::limit($product->description, 80) }}
-                                </p>
-                                <div class="mt-auto">
-                                    <div class="product-price">৳{{ number_format($product->price, 2) }}</div>
-                                    <a href="{{ route('product.show', $product->product_id) }}"
-                                       class="btn btn-primary btn-sm w-100 mt-2 view-details-btn">
-                                        <i class="bi bi-eye me-1"></i>View Details
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('partials.product-card', ['product' => $product])
                 @endforeach
             </div>
 
-            {{-- Pagination --}}
             @if($products->hasPages())
                 <div class="d-flex justify-content-center mt-5">
-                    {{ $products->appends(['search' => $search])->links('pagination::bootstrap-5') }}
+                    {{ $products->links('pagination::bootstrap-5') }}
                 </div>
             @endif
-
         @else
-            {{-- No Products Found --}}
             <div class="empty-state text-center py-5">
                 <i class="bi bi-search display-1 text-muted"></i>
                 <h3 class="mt-3 text-muted">No Products Found</h3>
@@ -115,7 +92,6 @@
                 </a>
             </div>
         @endif
-
     </div>
 </section>
 

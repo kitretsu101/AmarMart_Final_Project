@@ -52,7 +52,7 @@ class ProductSeeder extends Seeder
                 'name'        => 'Canon EOS M50 Camera',
                 'description' => 'Canon EOS M50 Mark II mirrorless camera with 24.1MP sensor, 4K video recording, Eye Detection AF, and built-in Wi-Fi. Great for content creators.',
                 'price'       => 65000.00,
-                'stock'       => 8,
+                'stock'       => 3, // low stock demo
                 'image'       => null,
             ],
             [
@@ -66,7 +66,7 @@ class ProductSeeder extends Seeder
                 'name'        => 'Stainless Steel Water Bottle',
                 'description' => 'BPA-free stainless steel insulated water bottle that keeps drinks cold for 24 hours and hot for 12 hours. Leak-proof and eco-friendly.',
                 'price'       => 1500.00,
-                'stock'       => 75,
+                'stock'       => 0, // out of stock demo
                 'image'       => null,
             ],
         ];

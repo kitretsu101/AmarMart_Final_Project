@@ -25,6 +25,8 @@ class Order extends Model
         'phone',
         'email',
         'address',
+        'latitude',
+        'longitude',
         'total_amount',
     ];
 
@@ -33,6 +35,8 @@ class Order extends Model
      */
     protected $casts = [
         'total_amount' => 'decimal:2',
+        'latitude'     => 'decimal:8',
+        'longitude'    => 'decimal:8',
     ];
 
     /**

@@ -51,6 +51,6 @@ class Product extends Model
         if ($this->image && file_exists(storage_path('app/public/' . $this->image))) {
             return asset('storage/' . $this->image);
         }
-        return asset('images/no-image.png');
+        return asset('images/no-image.svg');
     }
 }

@@ -4,17 +4,30 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     /**
-     * Display all orders (read-only).
+     * Display all orders (read-only) with search + pagination.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::orderBy('order_id', 'desc')->paginate(10);
+        $search = $request->input('search');
 
-        return view('admin.orders.index', compact('orders'));
+        $orders = Order::when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('invoice_number', 'like', '%' . $search . '%')
+                      ->orWhere('customer_name', 'like', '%' . $search . '%')
+                      ->orWhere('email', 'like', '%' . $search . '%')
+                      ->orWhere('phone', 'like', '%' . $search . '%');
+                });
+            })
+            ->orderBy('order_id', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.orders.index', compact('orders', 'search'));
     }
 
     /**

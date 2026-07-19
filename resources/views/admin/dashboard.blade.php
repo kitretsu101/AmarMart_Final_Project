@@ -11,7 +11,7 @@
 
 {{-- Stat Cards --}}
 <div class="row g-4 mb-5">
-    <div class="col-md-6 col-xl-4">
+    <div class="col-md-6 col-xl-3">
         <div class="stat-card card">
             <div class="card-body">
                 <div class="stat-icon stat-icon-blue">
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-xl-4">
+    <div class="col-md-6 col-xl-3">
         <div class="stat-card card">
             <div class="card-body">
                 <div class="stat-icon stat-icon-green">
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-xl-4">
+    <div class="col-md-6 col-xl-3">
         <div class="stat-card card">
             <div class="card-body">
                 <div class="stat-icon stat-icon-gold">
@@ -65,7 +65,57 @@
             </div>
         </div>
     </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card card">
+            <div class="card-body">
+                <div class="stat-icon" style="background:#fff3cd;color:#856404;">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-value">{{ $lowStockProducts }}</div>
+                    <div class="stat-label">Low Stock Products</div>
+                </div>
+            </div>
+            <div class="card-footer stat-footer">
+                <span class="text-muted small">Stock between 1 and 4</span>
+            </div>
+        </div>
+    </div>
 </div>
+
+{{-- Low Stock List --}}
+@if(isset($lowStockList) && $lowStockList->count() > 0)
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-exclamation-triangle me-2 text-warning"></i>Low Stock Alerts</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table admin-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th class="text-center">Stock</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($lowStockList as $p)
+                        <tr>
+                            <td>{{ $p->name }}</td>
+                            <td class="text-center"><span class="badge bg-warning text-dark">{{ $p->stock }}</span></td>
+                            <td class="text-center">
+                                <a href="{{ route('admin.products.edit', $p->product_id) }}" class="btn btn-sm btn-outline-primary">Restock</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endif
 
 {{-- Quick Actions --}}
 <div class="row g-4 mb-5">
@@ -94,7 +144,7 @@
 {{-- Recent Orders --}}
 <div class="card">
     <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="mb-0"><i class="bi bi-clock-history me-2"></i>Recent Orders</h5>
+        <h5 class="mb-0"><i class="bi bi-clock-history me-2"></i>Latest Orders</h5>
         <a href="{{ route('admin.orders.index') }}" class="btn btn-sm btn-outline-primary">View All</a>
     </div>
     <div class="card-body p-0">
