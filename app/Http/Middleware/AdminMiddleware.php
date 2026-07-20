@@ -16,6 +16,10 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::check()) {
+            if ($request->expectsJson()) {
+                abort(403, 'Access Denied');
+            }
+
             return redirect()->route('admin.login')
                              ->with('error', 'Please log in to access the admin panel.');
         }

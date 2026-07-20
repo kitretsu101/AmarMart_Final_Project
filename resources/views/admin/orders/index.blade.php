@@ -4,9 +4,20 @@
 
 @section('content')
 
-<div class="page-header-admin mb-4">
-    <h2 class="admin-page-title">Orders</h2>
-    <p class="text-muted mb-0">View and manage customer orders</p>
+<div class="page-header-admin mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+    <div>
+        <h2 class="admin-page-title">Orders</h2>
+        <p class="text-muted mb-0">View and search customer orders (read-only)</p>
+    </div>
+    <form action="{{ route('admin.orders.index') }}" method="GET" class="d-flex gap-2">
+        <input type="search" name="search" class="form-control"
+               placeholder="Search invoice, name, email, phone..."
+               value="{{ $search ?? '' }}" style="min-width:260px;">
+        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+        @if(!empty($search))
+            <a href="{{ route('admin.orders.index') }}" class="btn btn-outline-secondary">Clear</a>
+        @endif
+    </form>
 </div>
 
 <div class="card">
@@ -41,6 +52,10 @@
                                        class="btn btn-sm btn-outline-primary">
                                         <i class="bi bi-eye me-1"></i>View
                                     </a>
+                                    <a href="{{ route('invoice.show', $order->order_id) }}"
+                                       class="btn btn-sm btn-outline-secondary" target="_blank">
+                                        <i class="bi bi-receipt me-1"></i>Invoice
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -48,7 +63,6 @@
                 </table>
             </div>
 
-            {{-- Pagination --}}
             @if($orders->hasPages())
                 <div class="d-flex justify-content-center p-4">
                     {{ $orders->links('pagination::bootstrap-5') }}

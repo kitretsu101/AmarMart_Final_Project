@@ -6,7 +6,6 @@
 <section class="invoice-section">
     <div class="container">
 
-        {{-- Success Message --}}
         <div class="success-banner text-center mb-4">
             <div class="success-icon-wrap">
                 <i class="bi bi-check-circle-fill success-icon"></i>
@@ -15,9 +14,7 @@
             <p class="text-muted">A copy of your invoice is shown below.</p>
         </div>
 
-        {{-- Invoice Document --}}
         <div class="invoice-document" id="invoicePrint">
-            {{-- Invoice Header --}}
             <div class="invoice-header">
                 <div class="row align-items-center">
                     <div class="col-md-6">
@@ -41,7 +38,6 @@
 
             <hr class="invoice-divider">
 
-            {{-- Customer Information --}}
             <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="invoice-section-card">
@@ -63,7 +59,23 @@
                 </div>
             </div>
 
-            {{-- Order Items Table --}}
+            @if($order->latitude && $order->longitude)
+            <div class="mb-4">
+                <h6 class="invoice-section-title"><i class="bi bi-geo-fill me-2"></i>Current Location</h6>
+                <p class="mb-2 small text-muted">
+                    Latitude: {{ $order->latitude }} &nbsp;|&nbsp; Longitude: {{ $order->longitude }}
+                </p>
+                <div class="map-preview border rounded overflow-hidden">
+                    <iframe
+                        width="100%" height="220" style="border:0;"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                        src="https://maps.google.com/maps?q={{ $order->latitude }},{{ $order->longitude }}&z=15&output=embed"
+                        title="Order location map">
+                    </iframe>
+                </div>
+            </div>
+            @endif
+
             <div class="invoice-table-wrap">
                 <table class="table invoice-table" id="invoiceItemsTable">
                     <thead>
@@ -103,14 +115,12 @@
                 </table>
             </div>
 
-            {{-- Invoice Footer --}}
             <div class="invoice-footer text-center mt-4">
                 <p class="mb-1">Thank you for shopping with <strong>AmarMart</strong>!</p>
                 <p class="text-muted small mb-0">For queries, contact: support@amarmart.com</p>
             </div>
         </div>
 
-        {{-- Action Buttons (no-print) --}}
         <div class="invoice-actions text-center mt-4 no-print">
             <button class="btn btn-primary btn-lg me-3" onclick="window.print()" id="printInvoiceBtn">
                 <i class="bi bi-printer me-2"></i>Print Invoice
@@ -119,7 +129,6 @@
                 <i class="bi bi-bag me-2"></i>Continue Shopping
             </a>
         </div>
-
     </div>
 </section>
 @endsection

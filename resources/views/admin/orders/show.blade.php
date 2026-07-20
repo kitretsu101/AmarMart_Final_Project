@@ -43,6 +43,19 @@
                         <th class="text-muted fw-normal">Address</th>
                         <td>{{ $order->address }}</td>
                     </tr>
+                    @if($order->latitude && $order->longitude)
+                    <tr>
+                        <th class="text-muted fw-normal">Location</th>
+                        <td>
+                            Lat: {{ $order->latitude }}, Lng: {{ $order->longitude }}
+                            <div class="mt-2 map-preview border rounded overflow-hidden">
+                                <iframe width="100%" height="160" style="border:0;" loading="lazy"
+                                    src="https://maps.google.com/maps?q={{ $order->latitude }},{{ $order->longitude }}&z=15&output=embed"
+                                    title="Order location"></iframe>
+                            </div>
+                        </td>
+                    </tr>
+                    @endif
                     <tr>
                         <th class="text-muted fw-normal">Order Date</th>
                         <td>{{ $order->created_at->format('d M Y, h:i A') }}</td>

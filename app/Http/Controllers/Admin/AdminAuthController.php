@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminLoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Admin authentication (Laravel Breeze-style session auth).
+ * Only admin login — no customer registration.
+ */
 class AdminAuthController extends Controller
 {
-    /**
-     * Show the admin login form.
-     */
     public function showLoginForm()
     {
         if (Auth::check()) {
@@ -20,27 +22,15 @@ class AdminAuthController extends Controller
         return view('admin.login');
     }
 
-    /**
-     * Handle admin login.
-     */
-    public function login(Request $request)
+    public function login(AdminLoginRequest $request)
     {
-        $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
-        ], [
-            'email.required'    => 'Email address is required.',
-            'email.email'       => 'Please enter a valid email address.',
-            'password.required' => 'Password is required.',
-        ]);
-
         $credentials = $request->only('email', 'password');
         $remember    = $request->boolean('remember');
 
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
-            return redirect()->route('admin.dashboard')
+            return redirect()->intended(route('admin.dashboard'))
                              ->with('success', 'Welcome back, ' . Auth::user()->name . '!');
         }
 
@@ -49,9 +39,6 @@ class AdminAuthController extends Controller
         ])->withInput($request->only('email'));
     }
 
-    /**
-     * Handle admin logout.
-     */
     public function logout(Request $request)
     {
         Auth::logout();

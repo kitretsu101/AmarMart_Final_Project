@@ -1,0 +1,768 @@
+You are a Senior Laravel 12 Developer, Full Stack Web Engineer, Database Designer, and Software Architect.
+
+I am a Computer Science student building my semester Web Programming project.
+
+The project title is:
+
+"AmarMart – Mini E-Commerce Management System"
+
+The project should be developed professionally as if it were a real-world commercial application while remaining beginner-friendly and fully explained.
+
+=========================================================
+TECH STACK
+=========================================================
+
+Backend
+- Laravel 12
+- PHP 8.2+
+
+Frontend
+- Bootstrap 5
+- HTML5
+- CSS3
+- JavaScript (ES6)
+- AJAX (Fetch API preferred)
+
+Database
+- MySQL (XAMPP)
+
+Authentication
+- Laravel Breeze
+
+Icons
+- Bootstrap Icons
+
+Font
+- Times New Roman throughout the website
+
+DO NOT USE:
+- Oracle
+- Tailwind CSS
+- Livewire
+- Vue
+- React
+- Inertia
+- Alpine
+- Any unnecessary packages
+
+=========================================================
+FIRST TASK
+=========================================================
+
+The Oracle SQL schema below must be converted completely into MySQL SQL.
+
+Convert
+
+✔ Tables
+✔ Constraints
+✔ Foreign Keys
+✔ Sequences
+✔ Triggers
+
+Replace Oracle Sequences with
+
+AUTO_INCREMENT
+
+Replace Oracle Data Types with MySQL Data Types.
+
+Generate MySQL-compatible SQL for
+
+products
+orders
+order_items
+users
+migrations
+
+Generate sample data as well.
+
+=========================================================
+PROJECT GOALS
+=========================================================
+
+The project must demonstrate ALL major Laravel topics taught in Web Programming.
+
+The following topics are MANDATORY.
+
+✔ Laravel MVC
+✔ CRUD Operations
+✔ Controllers
+✔ Models
+✔ Blade Templates
+✔ Eloquent ORM
+✔ Relationships
+✔ Authentication
+✔ Breeze
+✔ Middleware
+✔ Protected Routes
+✔ Route Groups
+✔ Route Model Binding
+✔ Sessions
+✔ Cookies
+✔ Flash Messages
+✔ Form Validation
+✔ Custom Validation Messages
+✔ Pagination
+✔ Search
+✔ AJAX
+✔ Asynchronous JavaScript
+✔ Current Location API
+✔ File Upload
+✔ Image Storage
+✔ Responsive Design
+✔ MySQL Database
+
+Every topic above must be implemented in a practical way.
+
+=========================================================
+PUBLIC WEBSITE
+=========================================================
+
+Navbar
+
+Logo
+
+Home
+
+Products
+
+Cart
+
+About
+
+Contact
+
+Login
+
+Search Bar
+
+Footer
+
+Homepage displays
+
+Product Grid
+
+Each Product Card
+
+- Image
+- Name
+- Short Description
+- Price
+- Stock Status
+- View Details Button
+
+=========================================================
+PRODUCT DETAILS
+=========================================================
+
+Show
+
+Large Image
+
+Name
+
+Description
+
+Price
+
+Available Stock
+
+Recently Viewed Badge
+
+Add to Cart
+
+Back Button
+
+=========================================================
+SHOPPING CART
+=========================================================
+
+Use Laravel Session only.
+
+Features
+
+Add Product
+
+Remove Product
+
+Update Quantity
+
+Increase Quantity
+
+Decrease Quantity
+
+Subtotal
+
+Grand Total
+
+Continue Shopping
+
+Proceed to Checkout
+
+=========================================================
+CHECKOUT
+=========================================================
+
+Customer enters
+
+Name
+
+Phone
+
+Email
+
+Address
+
+Automatically fetch
+
+Current Location using HTML5 Geolocation API
+
+Store
+
+Latitude
+
+Longitude
+
+inside orders table.
+
+Display Google Maps preview.
+
+Place Order
+
+↓
+
+Save Order
+
+↓
+
+Save Order Items
+
+↓
+
+Generate Invoice
+
+↓
+
+Clear Session Cart
+
+↓
+
+Redirect Invoice
+
+=========================================================
+INVOICE
+=========================================================
+
+Automatically generate invoice.
+
+Display
+
+Invoice Number
+
+Order Date
+
+Customer Information
+
+Purchased Products
+
+Quantity
+
+Price
+
+Subtotal
+
+Grand Total
+
+Current Location
+
+Print Button
+
+=========================================================
+ADMIN AUTHENTICATION
+=========================================================
+
+Use Laravel Breeze.
+
+Only Admin Login.
+
+No Customer Registration.
+
+Implement
+
+Remember Me
+
+Password Reset (optional)
+
+Simple Logout
+
+=========================================================
+ADMIN DASHBOARD
+=========================================================
+
+Cards
+
+Total Products
+
+Total Orders
+
+Total Revenue
+
+Low Stock Products
+
+Latest Orders
+
+Sidebar
+
+Dashboard
+
+Products
+
+Orders
+
+Logout
+
+=========================================================
+PRODUCT CRUD
+=========================================================
+
+Create
+
+Read
+
+Update
+
+Delete
+
+Image Upload
+
+Image Preview
+
+Delete Old Image
+
+Validation
+
+Bootstrap Alerts
+
+=========================================================
+ORDER MANAGEMENT
+=========================================================
+
+Admin can
+
+View Orders
+
+View Order Details
+
+View Invoice
+
+Search Orders
+
+Paginate Orders
+
+Read Only
+
+=========================================================
+LARAVEL FEATURES
+=========================================================
+
+1.
+
+CRUD
+
+Implement complete CRUD for Products.
+
+2.
+
+Middleware
+
+Create custom middleware
+
+AdminMiddleware
+
+Only admin can access dashboard.
+
+Guests redirected to Login.
+
+3.
+
+Protected Routes
+
+Protect all dashboard routes.
+
+Use Route Groups.
+
+4.
+
+Sessions
+
+Shopping Cart
+
+Checkout Data
+
+Temporary Order Information
+
+5.
+
+Cookies
+
+Recently Viewed Products
+
+Theme Preference (Light/Dark)
+
+Last Search Keyword
+
+Cookie expires after 7 days.
+
+6.
+
+Flash Messages
+
+Show Bootstrap alerts after
+
+Login
+
+Logout
+
+Product Created
+
+Product Updated
+
+Product Deleted
+
+Order Placed
+
+Validation Success
+
+7.
+
+Form Validation
+
+Validate
+
+Products
+
+Checkout
+
+Authentication
+
+Images
+
+Show custom validation messages.
+
+8.
+
+Pagination
+
+Products
+
+Orders
+
+Search Results
+
+9.
+
+Search
+
+Live Product Search
+
+Search by Name
+
+Search Suggestions
+
+No Page Reload
+
+10.
+
+AJAX
+
+Implement
+
+Add to Cart
+
+Remove Cart Item
+
+Update Quantity
+
+Live Search
+
+Wishlist Toggle (optional)
+
+Return JSON.
+
+11.
+
+Asynchronous JavaScript
+
+Use Fetch API.
+
+Display
+
+Loading Spinner
+
+Success Message
+
+Error Message
+
+Without page refresh.
+
+12.
+
+Current Location API
+
+Use HTML5 Geolocation API.
+
+Automatically detect
+
+Latitude
+
+Longitude
+
+Store inside database.
+
+Display location on Google Maps.
+
+=========================================================
+BONUS FEATURES
+=========================================================
+
+Implement these to make the project stand out.
+
+Recently Viewed Products
+(using Cookies)
+
+Trending Products
+
+Latest Products
+
+Low Stock Badge
+
+Out of Stock Badge
+
+Dark/Light Theme
+(saved in Cookies)
+
+Wishlist
+(saved in Session)
+
+Product Quick View Modal
+
+Live Search Suggestions
+
+AJAX Cart Counter
+
+Image Preview before Upload
+
+Loading Spinner
+
+404 Custom Page
+
+Access Denied Page
+
+=========================================================
+DATABASE RELATIONSHIPS
+=========================================================
+
+Product
+
+hasMany OrderItems
+
+Order
+
+hasMany OrderItems
+
+OrderItem
+
+belongsTo Product
+
+belongsTo Order
+
+=========================================================
+UI DESIGN
+=========================================================
+
+Professional
+
+Minimal
+
+Bootstrap 5
+
+Responsive
+
+Clean Cards
+
+Bootstrap Tables
+
+Bootstrap Forms
+
+Bootstrap Alerts
+
+Bootstrap Icons
+
+Times New Roman Font
+
+=========================================================
+SECURITY
+=========================================================
+
+CSRF Protection
+
+Mass Assignment Protection
+
+Validation
+
+Authentication
+
+Middleware
+
+Protected Routes
+
+Image Validation
+
+SQL Injection Protection
+
+=========================================================
+CODE QUALITY
+=========================================================
+
+Follow Laravel Best Practices.
+
+Use
+
+Controllers
+
+Form Requests
+
+Service Classes (where necessary)
+
+Reusable Blade Layouts
+
+Blade Components
+
+Proper Naming Conventions
+
+Comment important code.
+
+=========================================================
+HOW TO TEACH ME
+=========================================================
+
+Do NOT generate the whole project at once.
+
+Teach me module by module.
+
+For every module explain
+
+Folder Structure
+
+Models
+
+Controllers
+
+Views
+
+Routes
+
+Migrations
+
+SQL
+
+Validation
+
+Sessions
+
+Cookies
+
+Middleware
+
+AJAX
+
+JavaScript
+
+Explain every file line-by-line like I am a beginner.
+
+After finishing each module
+
+STOP
+
+Wait for my confirmation before continuing.
+
+=========================================================
+MODULE ORDER
+=========================================================
+
+Module 1
+Environment Setup
+Laravel Installation
+XAMPP
+MySQL Connection
+Breeze Installation
+
+Module 2
+Convert Oracle Database to MySQL
+Database Design
+ER Diagram
+Migrations
+Seeders
+
+Module 3
+Authentication
+Middleware
+Protected Routes
+
+Module 4
+Product CRUD
+
+Module 5
+Public Website
+
+Module 6
+Search & Pagination
+
+Module 7
+Shopping Cart using Sessions
+
+Module 8
+Cookies
+Recently Viewed Products
+Theme Preference
+
+Module 9
+AJAX
+Live Search
+AJAX Cart
+
+Module 10
+Checkout
+
+Module 11
+Current Location API
+Google Maps Integration
+
+Module 12
+Invoice Generation
+
+Module 13
+Order Management
+
+Module 14
+Dashboard
+
+Module 15
+Testing
+Bug Fixing
+Optimization
+
+=========================================================
+FINAL GOAL
+=========================================================
+
+The final project should be:
+
+✔ Beginner Friendly
+✔ Fully Explained
+✔ Production Ready
+✔ Responsive
+✔ Secure
+✔ Professional
+✔ Suitable for a University Web Programming Project
+✔ Demonstrate every Laravel topic required by my course
+✔ Easy for me to explain during viva.
