@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class WishlistController extends Controller
 {
-    /**
-     * Display wishlist items from session.
-     */
+    
     public function index()
     {
         $wishlist = session()->get('wishlist', []);
@@ -22,9 +20,7 @@ class WishlistController extends Controller
         return view('wishlist', compact('products'));
     }
 
-    /**
-     * Toggle a product in the wishlist (AJAX / regular).
-     */
+    
     public function toggle(Request $request, $id)
     {
         $product = Product::findOrFail($id);

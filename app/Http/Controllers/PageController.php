@@ -6,25 +6,19 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    /**
-     * About page.
-     */
+   
     public function about()
     {
         return view('about');
     }
 
-    /**
-     * Contact page.
-     */
+   
     public function contact()
     {
         return view('contact');
     }
 
-    /**
-     * Handle contact form submission (flash only — no DB needed).
-     */
+    
     public function contactSubmit(Request $request)
     {
         $request->validate([
@@ -42,9 +36,7 @@ class PageController extends Controller
                          ->with('success', 'Thank you! Your message has been received.');
     }
 
-    /**
-     * Save theme preference cookie (light/dark) — expires in 7 days.
-     */
+   
     public function setTheme(Request $request)
     {
         $theme = $request->input('theme', 'light') === 'dark' ? 'dark' : 'light';

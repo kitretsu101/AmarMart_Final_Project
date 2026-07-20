@@ -13,11 +13,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
 
-/*
-|--------------------------------------------------------------------------
-| Public Routes
-|--------------------------------------------------------------------------
-*/
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [HomeController::class, 'products'])->name('products.index');
@@ -25,19 +21,16 @@ Route::get('/product/{id}', [HomeController::class, 'show'])->name('product.show
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'contactSubmit'])->name('contact.submit');
 
-// AJAX — Live search & quick view
 Route::get('/api/search/suggestions', [HomeController::class, 'searchSuggestions'])->name('search.suggestions');
 Route::get('/api/products/{id}/quick-view', [HomeController::class, 'quickView'])->name('products.quick-view');
 
-// AJAX — Current Location (Geolocation + Nominatim reverse geocoding)
 Route::get('/api/location/reverse', [LocationController::class, 'reverse'])->name('location.reverse');
 Route::post('/api/location/store', [LocationController::class, 'store'])->name('location.store');
 Route::get('/api/location/current', [LocationController::class, 'current'])->name('location.current');
 
-// Theme cookie
 Route::post('/theme', [PageController::class, 'setTheme'])->name('theme.set');
 
-// Shopping Cart (session) — AJAX-capable
+// Shopping Cart 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::patch('/cart/update', [CartController::class, 'update'])->name('cart.update');
@@ -57,11 +50,7 @@ Route::post('/checkout/place-order', [CheckoutController::class, 'placeOrder'])-
 // Invoice
 Route::get('/invoice/{id}', [InvoiceController::class, 'show'])->name('invoice.show');
 
-/*
-|--------------------------------------------------------------------------
-| Admin Routes (Laravel Breeze-style auth + AdminMiddleware)
-|--------------------------------------------------------------------------
-*/
+//admin routes
 
 Route::prefix('admin')->name('admin.')->group(function () {
 

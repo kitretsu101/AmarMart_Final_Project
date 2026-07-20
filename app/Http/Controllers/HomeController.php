@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
-    /**
-     * Display home page with product listing, search, latest & trending.
-     */
+    
     public function index(Request $request)
     {
         $search = $request->input('search', Cookie::get('last_search'));
@@ -40,9 +38,7 @@ class HomeController extends Controller
         return view('home', compact('products', 'search', 'latestProducts', 'trendingProducts'));
     }
 
-    /**
-     * Dedicated products listing page (same grid, navbar "Products").
-     */
+    
     public function products(Request $request)
     {
         $search = $request->input('search');
@@ -61,9 +57,7 @@ class HomeController extends Controller
         return view('products', compact('products', 'search'));
     }
 
-    /**
-     * Display a single product's details + track recently viewed cookie.
-     */
+    
     public function show($id)
     {
         $product = Product::findOrFail($id);
@@ -88,9 +82,7 @@ class HomeController extends Controller
         return $response;
     }
 
-    /**
-     * Live search suggestions (AJAX JSON).
-     */
+    
     public function searchSuggestions(Request $request)
     {
         $q = trim((string) $request->input('q', ''));
@@ -122,9 +114,7 @@ class HomeController extends Controller
         ]);
     }
 
-    /**
-     * Quick view modal data (AJAX JSON).
-     */
+    
     public function quickView($id)
     {
         $product = Product::findOrFail($id);

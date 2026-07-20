@@ -11,9 +11,7 @@ use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
-    /**
-     * Show the checkout form.
-     */
+    
     public function index()
     {
         $cart = session()->get('cart', []);
@@ -31,9 +29,7 @@ class CheckoutController extends Controller
         return view('checkout', compact('cart', 'total', 'userLocation'));
     }
 
-    /**
-     * Process the order and place it (with geolocation).
-     */
+    
     public function placeOrder(CheckoutRequest $request)
     {
         $cart = session()->get('cart', []);

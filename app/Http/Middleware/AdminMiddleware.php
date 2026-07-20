@@ -9,10 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
 {
-    /**
-     * Handle an incoming request.
-     * Protect admin routes — redirect to login if not authenticated.
-     */
+    
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::check()) {

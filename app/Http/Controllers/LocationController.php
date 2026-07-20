@@ -6,19 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-/**
- * Current Location API helpers.
- *
- * Browser → Geolocation API (lat/lng)
- * Laravel → OpenStreetMap Nominatim reverse geocoding (city/country)
- */
+
 class LocationController extends Controller
 {
-    /**
-     * Reverse-geocode latitude/longitude via Nominatim (AJAX JSON).
-     *
-     * GET /api/location/reverse?latitude=...&longitude=...
-     */
     public function reverse(Request $request)
     {
         $validated = $request->validate([
@@ -121,11 +111,7 @@ class LocationController extends Controller
         }
     }
 
-    /**
-     * Store browser-detected location in session (AJAX).
-     *
-     * POST /api/location/store
-     */
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -158,11 +144,7 @@ class LocationController extends Controller
         ]);
     }
 
-    /**
-     * Return the location currently stored in session (AJAX).
-     *
-     * GET /api/location/current
-     */
+    
     public function current()
     {
         $location = session('user_location');

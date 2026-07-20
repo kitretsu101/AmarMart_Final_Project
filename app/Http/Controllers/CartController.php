@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    /**
-     * Display the shopping cart.
-     */
+    
     public function index()
     {
         $cart  = session()->get('cart', []);
@@ -18,9 +16,7 @@ class CartController extends Controller
         return view('cart', compact('cart', 'total'));
     }
 
-    /**
-     * Add a product to the cart (supports AJAX JSON).
-     */
+    
     public function add(Request $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -58,9 +54,7 @@ class CartController extends Controller
         );
     }
 
-    /**
-     * Update the quantity of a cart item (supports AJAX).
-     */
+   
     public function update(Request $request)
     {
         $request->validate([
@@ -85,9 +79,7 @@ class CartController extends Controller
         return $this->cartResponse($request, true, 'Cart updated.', $cart);
     }
 
-    /**
-     * Increase quantity by 1.
-     */
+    
     public function increase(Request $request, $id)
     {
         $cart = session()->get('cart', []);
@@ -110,9 +102,7 @@ class CartController extends Controller
         return $this->cartResponse($request, true, 'Quantity increased.', $cart);
     }
 
-    /**
-     * Decrease quantity by 1 (remove at 0).
-     */
+   
     public function decrease(Request $request, $id)
     {
         $cart = session()->get('cart', []);
@@ -135,9 +125,7 @@ class CartController extends Controller
         return $this->cartResponse($request, true, 'Quantity decreased.', $cart);
     }
 
-    /**
-     * Remove a product from the cart (supports AJAX).
-     */
+ 
     public function remove(Request $request, $id)
     {
         $cart = session()->get('cart', []);
@@ -150,9 +138,6 @@ class CartController extends Controller
         return $this->cartResponse($request, true, 'Item removed from cart.', $cart);
     }
 
-    /**
-     * AJAX cart count endpoint.
-     */
     public function count()
     {
         $cart = session()->get('cart', []);
